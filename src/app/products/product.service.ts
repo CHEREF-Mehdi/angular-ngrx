@@ -18,7 +18,6 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http
       .get<Product[]>(environment.apiUrl + this.productsUrl)
-      .pipe(catchError(this.handleError));
   }
 
   createProduct(product: Product): Observable<Product> {
@@ -28,8 +27,7 @@ export class ProductService {
     return this.http
       .post<Product>(this.productsUrl, newProduct, { headers })
       .pipe(
-        tap((data) => console.log('createProduct: ' + JSON.stringify(data))),
-        catchError(this.handleError)
+        tap((data) => console.log('createProduct: ' + JSON.stringify(data))),        
       );
   }
 
@@ -54,6 +52,8 @@ export class ProductService {
   }
 
   private handleError(err: any) {
+    console.log({err});
+    
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
     let errorMessage: string;
@@ -63,7 +63,7 @@ export class ProductService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+      errorMessage = `Backend returned code ${err.error.status}: ${err.error.error}`;
     }
     console.error(err);
     return throwError(errorMessage);

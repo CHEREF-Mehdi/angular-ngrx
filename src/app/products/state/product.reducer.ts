@@ -121,7 +121,7 @@ export const productReducer = createReducer(
   on(productActions.PRODUCTS_SET_ERROR, (state, { error }) => {
     return {
       ...state,
-      error,
+      error: error,
     };
   })
 );

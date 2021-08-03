@@ -27,7 +27,7 @@ export const getCurrentProduct = createSelector(
           description: '',
           starRating: 0,
         }
-      : state.products.find((p) => p.id === currentProductId)
+      : state.products?.find((p) => p.id === currentProductId)
 );
 
 export const getProducts = createSelector(
